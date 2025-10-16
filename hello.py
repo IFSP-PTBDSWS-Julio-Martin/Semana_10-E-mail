@@ -1,7 +1,7 @@
 import os
 import sys
 from threading import Thread
-from flask import Flask, render_template, session, redirect, url_for, flash
+from flask import Flask, render_template, session, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_wtf import FlaskForm
@@ -119,11 +119,10 @@ def index():
             print('subject: ' + str(app.config['FLASKY_MAIL_SUBJECT_PREFIX']), flush=True)
             print('text: ' + "Novo usuário cadastrado: " + form.name.data, flush=True)
 
-            if app.config['FLASKY_ADMIN'] and enviar_email:
+            if app.config['FLASKY_ADMIN']:
                 print('Enviando mensagem...', flush=True)
                 send_simple_message([app.config['FLASKY_ADMIN'], "flaskaulasweb@zohomail.com"], 'Novo usuário', form.name.data)
                 print('Mensagem enviada...', flush=True)
-                flash("E-mail enviado para o <strong>Administrador do sistema</strong>, notificando o cadastro de um novo usuário.")
         else:
             session['known'] = True
         session['name'] = form.name.data
