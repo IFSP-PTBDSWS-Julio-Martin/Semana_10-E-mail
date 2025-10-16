@@ -127,5 +127,6 @@ def index():
             session['known'] = True
         session['name'] = form.name.data
         return redirect(url_for('index'))
+    users = User.query.all()
     return render_template('index.html', form=form, name=session.get('name'),
                            known=session.get('known', False), users=users)
